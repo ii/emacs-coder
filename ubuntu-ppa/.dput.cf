@@ -1,0 +1,6 @@
+[my-ppa]
+fqdn = ppa.launchpad.net
+method = ftp
+incoming = ~hippiehacker/ubuntu/emacs-broadway/
+login = anonymous
+allow_unsigned_uploads = 0
