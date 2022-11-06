@@ -27,13 +27,11 @@ USER coder
 
 WORKDIR /home/coder
 
-# # COPY fonts/* /home/gitpod/.local/share/fonts/
-# # RUN mkdir -p /home/gitpod/.local/share/fonts/
 RUN git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 RUN git clone --depth 1 https://github.com/humacs/.doom.d ~/.doom.d
-# Will need to update the shell if we want these in the path
-# ENV PATH=$HOME/.doom.d/bin:$HOME/.emacs.d/bin:$PATH
-# yes answers 'y' to any questions from doom install
-# Would prefer not to, as the output get buffered.
-# Possibly a doom install bug, that we can't provide answeres via cli args
-RUN yes y | $HOME/.emacs.d/bin/doom install && $HOME/.emacs.d/bin/doom sync
+RUN yes | $HOME/.emacs.d/bin/doom install --no-env
+RUN $HOME/.emacs.d/bin/doom sync
+
+# RUN $HOME/.emacs.d/bin/doom sync
+# # COPY fonts/* /home/gitpod/.local/share/fonts/
+# # RUN mkdir -p /home/gitpod/.local/share/fonts/
