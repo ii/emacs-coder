@@ -1,0 +1,17 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: |
+          BUILD_DATE="$(date +%s)"
+          docker build . --file Dockerfile --tag ghcr.io/ii/emacs-coder:"$BUILD_DATE"
+          docker push ghcr.io/ii/emacs-coder:"$BUILD_DATE"
