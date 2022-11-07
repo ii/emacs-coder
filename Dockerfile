@@ -38,6 +38,7 @@ RUN apt-get update && \
   sudo
 # Created a ppa for emacs + broadway&nativecomp (build/Dockerfile has some of the process documented)
 # We need a custom build to run against broadwayd
+# https://launchpad.net/~hippiehacker/+archive/ubuntu/emacs-broadway
 RUN add-apt-repository ppa:hippiehacker/emacs-broadway --yes && \
   DEBIAN_FRONTEND="noninteractive" apt-get install --yes emacs-snapshot emacs-snapshot-el
 # Use upstream stable git
