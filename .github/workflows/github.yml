@@ -21,8 +21,7 @@ jobs:
       - name: Build the container image
         run: |
           export BUILD_DATE="$(date +%s)"
-          docker build . --file Dockerfile --tag ghcr.io/ii/emacs-coder:$BUILD_DATE --tag ghcr.io/ii/emacs-coder:latest
+          docker build . --file Dockerfile --tag ghcr.io/ii/emacs-coder:latest
       - name: Push the container image
         run: |
-          docker push ghcr.io/ii/emacs-coder:$BUILD_DATE
           docker push ghcr.io/ii/emacs-coder:latest
