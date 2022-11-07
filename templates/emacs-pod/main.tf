@@ -65,7 +65,7 @@ resource "coder_app" "emacs-broadway" {
   agent_id     = coder_agent.main.id
   slug         = "emacs-broadway"
   display_name = "Emacs on Broadway"
-  icon         = "/icon/folder.svg"      # let's maybe get an emacs.svg somehow
+  icon         = "https://upload.wikimedia.org/wikipedia/commons/0/08/EmacsIcon.svg"
   url          = "http://localhost:8085" # port 8080 + BROADWAY_DISPLAY
 
   # healthcheck {
@@ -82,7 +82,7 @@ resource "coder_app" "ttyd" {
   share        = "public"
   slug         = "ttyd"
   display_name = "ttyd for tmux"
-  icon         = "/icon/folder.svg" # let's maybe get an emacs.svg somehow
+  icon         = "https://upload.wikimedia.org/wikipedia/commons/0/08/EmacsIcon.svg"
   agent_id     = coder_agent.main.id
   url          = "http://localhost:7681" # 7681 is the default ttyd port
 
@@ -99,7 +99,7 @@ resource "coder_app" "tmux" {
   agent_id     = coder_agent.main.id
   display_name = "tmux"
   slug         = "tmux"
-  icon         = "/icon/folder.svg" # let's maybe get an emacs.svg somehow
+  icon         = "https://upload.wikimedia.org/wikipedia/commons/0/08/EmacsIcon.svg"
   command      = "tmux at"
   share        = "public"
 }
