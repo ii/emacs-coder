@@ -6,6 +6,35 @@ RUN apt-get update && \
   ripgrep \
   fasd \
   libtool-bin \
+  bash-completion \
+  ca-certificates \
+  curl \
+  direnv \
+  dnsutils \
+  fd-find \
+  file \
+  gettext-base \
+  git \
+  gnupg2 \
+  htop \
+  iftop \
+  iproute2 \
+  iputils-ping \
+  jq \
+  kitty \
+  less \
+  locate \
+  net-tools \
+  openssh-client \
+  sudo \
+  tcpdump \
+  tmux \
+  tree \
+  tzdata \
+  unzip \
+  vim \
+  wget \
+  xz-utils \
   sudo
 # Created a ppa for emacs + broadway&nativecomp (build/Dockerfile has some of the process documented)
 # We need a custom build to run against broadwayd
