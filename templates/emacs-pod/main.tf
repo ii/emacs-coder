@@ -55,12 +55,16 @@ resource "coder_agent" "main" {
     # start ttyd / tmux
     tmux new -d
     ttyd tmux at 2>&1 | tee ttyd.log &
+    # install and start code-server
+    curl -fsSL https://code-server.dev/install.sh | sh  | tee code-server-install.log
+    code-server --auth none --port 13337 | tee code-server-install.log &
+
   EOT
 }
 
 # emacs-broadway
 resource "coder_app" "emacs-broadway" {
-  subdomain    = true
+  subdomain    = false
   share        = "public"
   agent_id     = coder_agent.main.id
   slug         = "emacs-broadway"
@@ -78,7 +82,7 @@ resource "coder_app" "emacs-broadway" {
 
 # ttyd
 resource "coder_app" "ttyd" {
-  subdomain    = true
+  subdomain    = false
   share        = "public"
   slug         = "ttyd"
   display_name = "ttyd for tmux"
@@ -104,11 +108,30 @@ resource "coder_app" "tmux" {
   share        = "public"
 }
 
+# code-server
+resource "coder_app" "code-server" {
+  agent_id     = coder_agent.main.id
+  display_name = "code-server"
+  slug         = "code-server"
+  icon         = "/icon/code.svg"
+  url          = "http://localhost:13337?folder=/home/coder"
+  subdomain    = false
+
+  # healthcheck {
+  #   url       = "http://localhost:13337/healthz"
+  #   interval  = 3
+  #   threshold = 10
+  # }
+}
+
 resource "kubernetes_pod" "main" {
   count = data.coder_workspace.me.start_count
   metadata {
     name      = "coder-${lower(data.coder_workspace.me.owner)}-${lower(data.coder_workspace.me.name)}"
     namespace = var.namespace
+    labels = {
+      name = "coder-${lower(data.coder_workspace.me.owner)}-${lower(data.coder_workspace.me.name)}"
+    }
   }
   spec {
     security_context {
