@@ -45,13 +45,6 @@ RUN add-apt-repository ppa:hippiehacker/emacs-broadway --yes && \
 RUN add-apt-repository ppa:git-core/ppa --yes && \
   DEBIAN_FRONTEND="noninteractive" apt-get install --yes git
 
-RUN chgrp coder -R /usr/local/bin && \
-  chmod 775 -R /usr/local/bin
-
-ARG KUBECTL_VERSION=1.24.2
-RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
-    && chmod +x /usr/local/bin/kubectl
-
 # Add a user `coder` so that you're not developing as the `root` user
 RUN useradd coder \
     --create-home \
@@ -59,6 +52,13 @@ RUN useradd coder \
     --uid=1000 \
     --user-group && \
     echo "coder ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
+
+RUN chgrp coder -R /usr/local/bin && \
+  chmod 775 -R /usr/local/bin
+
+ARG KUBECTL_VERSION=1.24.2
+RUN curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
+    && chmod +x /usr/local/bin/kubectl
 
 USER coder
 
